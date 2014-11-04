@@ -2,25 +2,21 @@
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require
+require './models/TodoItem'
+
+ActiveRecord::Base.establish_connection(
+  :adapter  => 'sqlite3',
+  :database => 'db/development.db',
+  :encoding => 'utf8'
+)
 
 get '/' do
-  lines = File.read("todo.txt").split("\n")
-  @tasks = []
-  lines.each do |line|
-    task, date = line.split("-")
-    @tasks << [task, date]
-  end
+  @tasks = TodoItem.all.order(:due)
   erb :form
 end
 
 post '/' do
-  File.open("todo.txt", "a") do |file|
-    unless nodate params[:date]
-      file.puts "#{params[:task]} - #{params[:date]}" 
-    else
-      file.puts "#{params[:task]}"
-    end
-  end
+  TodoItem.create(description: params[:task], due: params[:date])
   redirect '/'
 end
 

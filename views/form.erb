@@ -22,10 +22,10 @@
     <h2>As narrated by Mr. Sand (Ghost Version) </h2>
     <div class='text_box'>
     <ul>
-      <% @tasks.each do |task, date| %>
+      <% @tasks.each do |task| %>
         <li>
-          <%= task %>
-          <% unless nodate date %> <em> -~-~-~-~ <%= date %></em><% end %>
+          <%= task.description %>
+          <% unless nodate task.due %> <em> -~-~-~-~ <%= task.due %></em><% end %>
         </li>
       <% end %>
     </ul>
