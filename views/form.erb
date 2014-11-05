@@ -24,6 +24,7 @@
     <ul>
       <% @tasks.each do |task| %>
         <li>
+          <% unless nodate task.user_id %> <em> <%= task.user_id %> ::: </em><% end %>
           <%= task.description %>
           <% unless nodate task.due %> <em> -~-~-~-~ <%= task.due %></em><% end %>
         </li>
@@ -38,11 +39,26 @@
     <form action="/" method="POST">
     <strong>New Task:</strong>
     <input type='text' name='task' placeholder='task content' />
+    <strong>Due Date:</strong>
     <input type='text' name='date' placeholder='due date' />
+    <strong>User Name:</strong>
+    <input type='text' name="user_data" placeholder='your name' />
     <div class="button">
         <button type="submit">Save Your Task</button>
     </div> 
 </form>
+	</div>
+	<h1>Delete an old task!</h1>
+    <div class='text_box'>
+    <p> </p>
+    <form action="/" method="POST">
+    <strong>User Name:</strong>
+    <input type='text' name="delete_user_data" placeholder="Which user's tasks do you wish to delete?" />
+    <input type='hidden' name="constant" value=0 />
+    <div class="button">
+        <button type="submit">Delete Their Tasks!</button>
+    </div>
+    </form>
     </div>
 </body>
 
