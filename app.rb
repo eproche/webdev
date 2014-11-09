@@ -25,6 +25,12 @@ post '/' do
   redirect '/'
 end
 
+post '/delete' do
+  some_id = TodoItem.where(description: params[:del_task]).limit(1).pluck(:id)
+  TodoItem.destroy(some_id)
+  redirect '/'
+end
+
 helpers do
   def nodate(x)
     x.nil? || x == ""
